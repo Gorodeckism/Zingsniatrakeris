@@ -1,3 +1,7 @@
 .item .sc-ion-label-md-h {
     text-align: center !important;
 }
+.meniuLink {
+    color: #192130;
+    text-decoration: none;
+}

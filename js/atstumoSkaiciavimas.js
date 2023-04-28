@@ -27,6 +27,8 @@ function stopTimer() {
     clearInterval(timerInterval);
     startButton.disabled = false;
     stopButton.disabled = true;
+
+    calculateCalories();
 }
 
 // Funkcija updateTimer() atnaujina laiko atvaizdavimą (valandas, minutes, sekundes)
@@ -60,7 +62,7 @@ function updateDistance(position) {
     let newCoords = position.coords;
     if (prevCoords) {
         let delta = calculateDistance(prevCoords, newCoords);
-        distance += delta * 0.7;
+        distance += delta;// * 0.7
         distanceText.innerText = distance.toFixed(2);
 
         result = distance / 0.85;

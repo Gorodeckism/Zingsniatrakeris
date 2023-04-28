@@ -32,5 +32,19 @@ function requestGeolocationPermission() {
     }
 }
 
-// Iškviečiama funkcija, kuri patikrina geolokacijos leidimą
-requestGeolocationPermission();
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Jei naudojamas mobilus įrenginys
+    // Iškviečiama funkcija, kuri patikrina geolokacijos leidimą
+    requestGeolocationPermission();
+  } else {
+    // Jei naudojamas kompiuteris, išvesk alert su pranešimu
+    // window.addEventListener('load', function() {
+    //     const alertElement = document.querySelector('#my-alert');
+    //     alertElement.present();
+    //   });
+    alert("Sveiki. Jūs tikėtina naudojate kompiuterį, kuris gali neturėti tikslų vietos nustatymą. Dėl to aplikacija gali tinkamai neveikti jūsų įrenginyje. Rekomenduojame naudoti įrangą su GPS funkcija.");
+      
+    //alert("Jūs įžengėte į svetainę su kompiuteriu!");
+    // Iškviečiama funkcija, kuri patikrina geolokacijos leidimą
+    requestGeolocationPermission();
+  }

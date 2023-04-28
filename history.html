@@ -1,0 +1,16 @@
+<div id="saved-data">
+    <h2>Saugota informacija:</h2>
+    <ul id="saved-list"></ul>
+  </div>
+  <script>
+    const savedList = document.getElementById('saved-list');
+const savedData = JSON.parse(localStorage.getItem('myData')) || [];
+
+// Iteruojame per išsaugotus duomenis ir sukuriame HTML elementus
+for (const data of savedData) {
+  const li = document.createElement('li');
+  li.innerHTML = `${data.distance} km išsaugota ${data.time}`;
+  savedList.appendChild(li);
+}
+
+  </script>
