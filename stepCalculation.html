@@ -54,52 +54,57 @@
         <ion-title>Žingsniatrakeris</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
-        <!-- kontentas -->
-        <form>
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label position='floating'>Svoris (kg)</ion-label>
-                        <ion-input id="weight"  name="weight" required></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label position='floating'>Ūgis (cm)</ion-label>
-                        <ion-input id="height" name="height" required></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-segment value="default" id="gender" name="gender" required>
-                <ion-segment-button value="male">
-                <ion-label>Vyras</ion-label>
-                </ion-segment-button>
-                <ion-segment-button value="female">
-                <ion-label>Moteris</ion-label>
-                </ion-segment-button>
-            </ion-segment> 
-            <!-- <ion-row>
-                <ion-col>
-                    <ion-item>
-                        <ion-label position='floating'>Nueitas atstumas (km)</ion-label>
-                        <ion-input type="number" id="distance" name="distance" required></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>          -->
-            <ion-row>
-                <ion-col>
-                    <ion-button onclick="saveCaloriesData()" expand="block">Išsaugoti</ion-button>
-                </ion-col>
-            </ion-row>
-        </form>
-        <div id="result">
+        <ion-content class="ion-padding">
+    <h1>Atstumo skaičiuoklė</h1>
+    <input type="number" id="inputas" placeholder="Įveskite žingsnių skaičių">
+    <button onclick="issaugotiInformacija()">Išsaugoti inputo informaciją</button>
+    <button onclick="pradetiSkaičiuoti()">Pradėti skaičiuoti 100 metrų atstumą</button>
+    <div id="progress-bar">
+        <div id="progress-bar-inner"></div>
+    </div>
 
-        </div>
-    </ion-footer>
-    <script src="js/kalorijuSkaiciavimas.js"></script>
+    <script>
+        var pradziosLaikas;
+        var baigtisLaikas;
+        var zingsniai = 0;
+
+        function pradetiSkaičiuoti() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(nustatytiAtstuma);
+                pradziosLaikas = new Date();
+            } else {
+                alert('Jūsų naršyklė nepalaiko geolokacijos funkcijos.');
+            }
+        }
+
+        function nustatytiAtstuma(position) {
+            var distance = position.coords.speed || 0;
+            updateProgressBar(distance);
+
+            if (distance >= 100) {
+                baigtisLaikas = new Date();
+                var laikas = (baigtisLaikas - pradziosLaikas) / 1000; // konvertuojama į sekundes
+                var vidurkis = (100 / zingsniai).toFixed(2);
+                alert('Nueita 100 metrų!\nLaikas: ' + laikas + ' s\nŽingsnių skaičius: ' + zingsniai + '\nVidurkis: ' + vidurkis + ' metrų vienam žingsniui.');
+            }
+        }
+
+        function updateProgressBar(distance) {
+            zingsniai += 1;
+            var progressoProcentai = (distance / 100) * 100;
+            var progressBarInner = document.getElementById('progress-bar-inner');
+            progressBarInner.style.width = progressoProcentai + '%';
+        }
+
+        function issaugotiInformacija() {
+            var inputas = document.getElementById('inputas').value;
+            localStorage.setItem('inputoInformacija', inputas);
+            var vidurkis = (100 / inputas).toFixed(2);
+            alert('Išsaugota inputo informacija: ' + inputas + '\nVidurkis: ' + vidurkis + ' metrų vienam žingsniui.');
+        }
+    </script>
+    </ion-content>
+    <script src="js/tiksloTikrinimas.js"></script>
   </div>
   <!-- Service Worker palaikymas -->
   <script src="js/app.js"></script>

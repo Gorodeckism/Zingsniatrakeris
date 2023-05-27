@@ -54,31 +54,29 @@
         <ion-title>Žingsniatrakeris</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
-        <!-- kontentas -->
-        <div id="saved-data">
-    <h2>Saugota informacija:</h2>
-    <ul id="saved-list"></ul>
+        <ion-content class="ion-padding">
+        <h1>Įveskite atstumo tikslą:</h1>
+        <ion-row>
+          <ion-col>
+              <ion-item>
+                  <ion-label position='floating'>Tikslas</ion-label>
+                  <ion-input type="number" id="atstumasInput" placeholder="Įveskite atstumą" required></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <ion-button onclick="issaugotiAtstuma()" expand="block">Išsaugoti</ion-button>
+        </ion-col>
+      </ion-row>
+        <!-- <input type="number" id="atstumasInput" placeholder="Įveskite atstumą">
+        <button onclick="issaugotiAtstuma()">Išsaugoti</button> -->
+    </ion-content>
+    <script src="js/tiksloTikrinimas.js"></script>
   </div>
-    <script>
-      const savedList = document.getElementById('saved-list');
-  const savedData = JSON.parse(localStorage.getItem('myData')) || [];
-
-  // Iteruojame per išsaugotus duomenis ir sukuriame HTML elementus
-  for (const data of savedData) {
-    const li = document.createElement('li');
-    li.innerHTML = `${data.distance} km išsaugota ${data.time}`;
-    savedList.appendChild(li);
-  }
-
-    </script>
-  </div>
-</ion-footer>
-<script src="js/kalorijuSkaiciavimas.js"></script>
-</div>
-<!-- Service Worker palaikymas -->
-<script src="js/app.js"></script>
-<link rel="stylesheet" href="css/home.css" />
+  <!-- Service Worker palaikymas -->
+  <script src="js/app.js"></script>
+  <link rel="stylesheet" href="css/home.css" />
 </body>
 
 </html>

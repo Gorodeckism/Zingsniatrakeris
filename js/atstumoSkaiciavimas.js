@@ -27,8 +27,6 @@ function stopTimer() {
     clearInterval(timerInterval);
     startButton.disabled = false;
     stopButton.disabled = true;
-
-    calculateCalories();
 }
 
 // Funkcija updateTimer() atnaujina laiko atvaizdavimą (valandas, minutes, sekundes)
@@ -67,6 +65,14 @@ function updateDistance(position) {
 
         result = distance / 0.85;
         resultSpan.innerText = result.toFixed(0);
+
+        calculateCalories(distance);
+
+        //tikslo tikrinimas
+        if(localStorage.getItem("atstumoTikslas") != null || localStorage.getItem("atstumoTikslas") != ""){
+            patikrintiTiksla(distance);
+        }
+        
     }
     prevCoords = newCoords;
 }

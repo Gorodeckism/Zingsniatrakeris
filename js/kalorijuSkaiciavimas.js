@@ -1,3 +1,9 @@
+if(localStorage.getItem("weight") != null && localStorage.getItem("height") != null && localStorage.getItem("gender") != null){
+  document.querySelector('#weight').value = localStorage.getItem("weight");
+  document.querySelector('#height').value = localStorage.getItem("height");
+  document.querySelector('#gender').value = localStorage.getItem("gender");
+}
+
 function saveCaloriesData(){
     const weight = document.querySelector('#weight').value;
     const height = document.querySelector('#height').value;
@@ -9,11 +15,10 @@ function saveCaloriesData(){
 }
 
 
-function calculateCalories() {
+function calculateCalories(distance) {
     const weight = localStorage.getItem("weight");
     const height = localStorage.getItem("height");
     const gender = localStorage.getItem("gender");
-    const distance = document.querySelector('#distance').value;
     
     let calories = 0;
     
