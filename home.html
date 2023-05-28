@@ -14,12 +14,6 @@
 <body>
   <ion-alert header="Pranešimas" message="Sveiki. Jūs tikėtina naudojate kompiuterį, kuris gali neturėti tikslų vietos nustatymą. Dėl to aplikacija gali tinkamai neveikti jūsų įrenginyje. Rekomenduojame naudoti įrangą su GPS funkcija." id="my-alert" style="display: none;"></ion-alert>
   <!-- <ion-alert header="Sveiki" message="Jūs kogero apsilankėte pirmą kartą, rekomenduojame kalorijų skaičiavimui ir vidutiniam žingsnio ilgiui užsipildyti duomenis dėl geresnio skaičiavimo :)" id="my-sveikinimas" style="display: none;"></ion-alert> -->
-  <ion-item style="display: none;" id="sveikinimas">
-    <ion-label class="ion-text-wrap">
-      <h3><ion-text color="warning"><ion-icon name="warning"></ion-icon></ion-text> Sveiki</h3>
-      <p>Jūs kogero apsilankėte pirmą kartą, rekomenduojame kalorijų skaičiavimui ir vidutiniam žingsnio ilgiui užsipildyti duomenis dėl geresnio skaičiavimo :)</p>
-    </ion-label>
-  </ion-item>
   <script src="js/gautiLeidimaGpsui.js"></script>
   <ion-menu content-id="main-content">
     <ion-header>
@@ -62,7 +56,12 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-
+      <ion-item style="display: none;" id="sveikinimas">
+        <ion-label class="ion-text-wrap">
+          <h3><ion-text color="warning"><ion-icon name="warning"></ion-icon></ion-text> Sveiki</h3>
+          <p>Jūs kogero apsilankėte pirmą kartą, rekomenduojame kalorijų skaičiavimui ir vidutiniam žingsnio ilgiui užsipildyti duomenis dėl geresnio skaičiavimo :)</p>
+        </ion-label>
+      </ion-item>
 
       <div id="map" style="position: relative; height: 300px;">
         <ion-spinner id="map-spinner"
