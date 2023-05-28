@@ -63,7 +63,8 @@ function updateDistance(position) {
         distance += delta;// * 0.7
         distanceText.innerText = distance.toFixed(2);
 
-        result = distance / 0.85;
+        //zingsniu skaiciavimas
+        result = distance / localStorage.getItem("zingsnioIlgis");
         resultSpan.innerText = result.toFixed(0);
 
         calculateCalories(distance);

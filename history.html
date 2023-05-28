@@ -56,25 +56,12 @@
     </ion-header>
     <ion-content class="ion-padding">
         <!-- kontentas -->
-        <div id="saved-data">
-    <h2>Saugota informacija:</h2>
-    <ul id="saved-list"></ul>
+        <h2>Jūsų vaikščiojimo istorija:</h2>
+        <ion-list id="saved-list">
+        </ion-list>
+    </ion-content>
   </div>
-    <script>
-      const savedList = document.getElementById('saved-list');
-  const savedData = JSON.parse(localStorage.getItem('myData')) || [];
-
-  // Iteruojame per išsaugotus duomenis ir sukuriame HTML elementus
-  for (const data of savedData) {
-    const li = document.createElement('li');
-    li.innerHTML = `${data.distance} km išsaugota ${data.time}`;
-    savedList.appendChild(li);
-  }
-
-    </script>
-  </div>
-</ion-footer>
-<script src="js/kalorijuSkaiciavimas.js"></script>
+<script src="js/istorijosAtvaizdavimas.js"></script>
 </div>
 <!-- Service Worker palaikymas -->
 <script src="js/app.js"></script>

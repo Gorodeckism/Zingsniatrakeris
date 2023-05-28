@@ -2,6 +2,11 @@ if(localStorage.getItem("weight") != null && localStorage.getItem("height") != n
   document.querySelector('#weight').value = localStorage.getItem("weight");
   document.querySelector('#height').value = localStorage.getItem("height");
   document.querySelector('#gender').value = localStorage.getItem("gender");
+}else{
+  if(document.querySelector('#sveikinimas') != null){
+    //isaugome atstuma kuri ivede vartotojas
+    document.querySelector('#sveikinimas').style.display = "block";
+}
 }
 
 function saveCaloriesData(){

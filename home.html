@@ -13,6 +13,13 @@
 
 <body>
   <ion-alert header="Pranešimas" message="Sveiki. Jūs tikėtina naudojate kompiuterį, kuris gali neturėti tikslų vietos nustatymą. Dėl to aplikacija gali tinkamai neveikti jūsų įrenginyje. Rekomenduojame naudoti įrangą su GPS funkcija." id="my-alert" style="display: none;"></ion-alert>
+  <!-- <ion-alert header="Sveiki" message="Jūs kogero apsilankėte pirmą kartą, rekomenduojame kalorijų skaičiavimui ir vidutiniam žingsnio ilgiui užsipildyti duomenis dėl geresnio skaičiavimo :)" id="my-sveikinimas" style="display: none;"></ion-alert> -->
+  <ion-item style="display: none;" id="sveikinimas">
+    <ion-label class="ion-text-wrap">
+      <h3><ion-text color="warning"><ion-icon name="warning"></ion-icon></ion-text> Sveiki</h3>
+      <p>Jūs kogero apsilankėte pirmą kartą, rekomenduojame kalorijų skaičiavimui ir vidutiniam žingsnio ilgiui užsipildyti duomenis dėl geresnio skaičiavimo :)</p>
+    </ion-label>
+  </ion-item>
   <script src="js/gautiLeidimaGpsui.js"></script>
   <ion-menu content-id="main-content">
     <ion-header>
@@ -109,6 +116,7 @@
     <script src="js/kalorijuSkaiciavimas.js"></script>
     <script src="js/istorijosIsaugojimas.js"></script>
     <script src="js/tiksloTikrinimas.js"></script>
+    <script src="js/zingsnioIlgis.js"></script>
   </div>
   <!-- Service Worker palaikymas -->
   <script src="js/app.js"></script>
