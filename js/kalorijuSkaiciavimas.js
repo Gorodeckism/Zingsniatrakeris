@@ -40,7 +40,11 @@ function calculateCalories(distance) {
     
     if (distance > 0) {
       calories += distance * 0.73;
+    } else {
+      calories = 0; // Set calories to zero if distance is zero
     }
+  } else {
+    calories = 0; // Set calories to zero if weight, height, or gender is missing
   }
   
   const resultElement = document.querySelector('#kmiresult');
