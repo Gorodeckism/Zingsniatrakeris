@@ -41,10 +41,10 @@ function calculateCalories(distance) {
     if (distance > 0) {
       calories += distance * 0.73;
     } else {
-      calories = 0; // Set calories to zero if distance is zero
+      calories = 0; // kalorijos sulyginamos nuliui jei atstumas yra 0
     }
   } else {
-    calories = 0; // Set calories to zero if weight, height, or gender is missing
+    calories = 0; // kalorijos lygios 0 jei, lytis, ūgis ir svoris nėra įvesti.
   }
   
   const resultElement = document.querySelector('#kmiresult');
