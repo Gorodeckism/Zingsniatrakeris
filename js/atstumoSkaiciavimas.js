@@ -1,3 +1,41 @@
+let acceleration = {};
+let previousAcceleration = {};
+let stepCount = 0;
+let isStep = false;
+
+function handleAcceleration(event) {
+  previousAcceleration = { ...acceleration };
+  acceleration = event.accelerationIncludingGravity;
+
+  if (isAccelerationExceedThreshold(acceleration, previousAcceleration)) {
+    isStep = !isStep;
+    if (isStep) {
+      stepCount++;
+      updateStepCount();
+    }
+  }
+}
+
+function isAccelerationExceedThreshold(acceleration, previousAcceleration) {
+  const threshold = 0.8; // Adjust this value to set the threshold for step detection
+
+  const diffX = Math.abs(acceleration.x - previousAcceleration.x);
+  const diffY = Math.abs(acceleration.y - previousAcceleration.y);
+  const diffZ = Math.abs(acceleration.z - previousAcceleration.z);
+
+  return (diffX > threshold || diffY > threshold || diffZ > threshold);
+}
+
+function updateStepCount() {
+  const resultElement = document.querySelector('#result');
+  resultElement.textContent = stepCount;
+}
+
+window.addEventListener('devicemotion', handleAcceleration);
+
+
+
+
 // Deklaruojami kintamieji startTime, timerInterval, timerDisplay, startButton ir stopButton
 let startTime;
 let timerInterval;
