@@ -38,8 +38,9 @@ function calculateCalories(distance) {
     calories += weight * 0.038 + height * 0.025;
     
     // Skaičiuojame kalorijas pagal nueitą atstumą
+  if (distance > 0) {
     calories += distance * 0.73;
-    
+  }
     // Atvaizduojame rezultatą vartotojui
     const resultElement = document.querySelector('#kmiresult');
     resultElement.innerHTML = `${calories.toFixed(2)}`;
