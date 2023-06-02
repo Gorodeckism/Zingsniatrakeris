@@ -86,31 +86,24 @@ function stopTracking() {
 }
 
 // Funkcija calculateDistance() apskkaičiuoja atstumą
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const earthRadius = 6371; // Earth's radius in kilometers
+function calculateDistance(coords1, coords2) {
+    let lat1 = coords1.latitude;
+    let lon1 = coords1.longitude;
+    let lat2 = coords2.latitude;
+    let lon2 = coords2.longitude;
+    let R = 6371e3;
+    let phi1 = toRadians(lat1);
+    let phi2 = toRadians(lat2);
+    let deltaPhi = toRadians(lat2 - lat1);
+    let deltaLambda = toRadians(lon2 - lon1);
 
-  // Convert latitude and longitude to radians
-  const lat1Rad = degToRad(lat1);
-  const lon1Rad = degToRad(lon1);
-  const lat2Rad = degToRad(lat2);
-  const lon2Rad = degToRad(lon2);
+    let a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+        Math.cos(phi1) * Math.cos(phi2) *
+        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  // Calculate the differences between coordinates
-  const latDiff = lat2Rad - lat1Rad;
-  const lonDiff = lon2Rad - lon1Rad;
+    return R * c;
 
-  // Calculate the distance using the Haversine formula
-  const a =
-    Math.sin(latDiff / 2) ** 2 +
-    Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(lonDiff / 2) ** 2;
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = earthRadius * c;
-
-  return distance;
-}
-
-function degToRad(degrees) {
-  return degrees * (Math.PI / 180);
 
 }
 
