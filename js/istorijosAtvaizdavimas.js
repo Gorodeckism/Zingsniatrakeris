@@ -1,11 +1,11 @@
 const savedList = document.getElementById('saved-list');
 const savedData = JSON.parse(localStorage.getItem('myData')) || [];
 
-// Iterate through the savedData and create HTML elements
+// einame per išsaugotus duomenis ir sukuriame HTML elementus
 for (const data of savedData) {
   const li = document.createElement('span');
-  const steps = data.steps !== undefined ? data.steps : 0; // Check if steps property exists and assign zero if undefined
-  li.innerHTML = `<ion-item><ion-label>${data.time} nuėjote ${data.distance} m atstumo, atlikote ${steps} žingsnių</ion-label></ion-item>`;
+  const distanceText = data.distance !== undefined ? `${data.distance} m atstumo, ` : '';
+  const stepsText = data.steps !== undefined ? `${data.steps} žingsnių` : '';
+  li.innerHTML = `<ion-item><ion-label>${data.time} nuėjote ${distanceText}${stepsText}</ion-label></ion-item>`;
   savedList.appendChild(li);
 }
-
