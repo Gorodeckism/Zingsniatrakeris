@@ -2,12 +2,15 @@ let acceleration = {};
 let previousAcceleration = {};
 let stepCount = 0;
 let isStep = false;
+let stepThreshold = 0.8; // Adjust this value to set the threshold for step detection
+let peakThreshold = 0.5; // Adjust this value to set the threshold for peak detection
+let valleyThreshold = -0.5; // Adjust this value to set the threshold for valley detection
 
 function handleAcceleration(event) {
   previousAcceleration = { ...acceleration };
   acceleration = event.accelerationIncludingGravity;
 
-  if (isAccelerationExceedThreshold(acceleration, previousAcceleration)) {
+  if (isPeak(acceleration, previousAcceleration) || isValley(acceleration, previousAcceleration)) {
     isStep = !isStep;
     if (isStep) {
       stepCount++;
@@ -16,14 +19,14 @@ function handleAcceleration(event) {
   }
 }
 
-function isAccelerationExceedThreshold(acceleration, previousAcceleration) {
-  const threshold = 0.8; // Adjust this value to set the threshold for step detection
+function isPeak(acceleration, previousAcceleration) {
+  const diffY = acceleration.y - previousAcceleration.y;
+  return acceleration.y > peakThreshold && previousAcceleration.y < peakThreshold && diffY > 0;
+}
 
-  const diffX = Math.abs(acceleration.x - previousAcceleration.x);
-  const diffY = Math.abs(acceleration.y - previousAcceleration.y);
-  const diffZ = Math.abs(acceleration.z - previousAcceleration.z);
-
-  return (diffX > threshold || diffY > threshold || diffZ > threshold);
+function isValley(acceleration, previousAcceleration) {
+  const diffY = acceleration.y - previousAcceleration.y;
+  return acceleration.y < valleyThreshold && previousAcceleration.y > valleyThreshold && diffY < 0;
 }
 
 function updateStepCount() {
@@ -32,7 +35,6 @@ function updateStepCount() {
 }
 
 window.addEventListener('devicemotion', handleAcceleration);
-
 
 
 
