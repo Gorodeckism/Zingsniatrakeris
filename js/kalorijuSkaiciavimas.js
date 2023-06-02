@@ -21,28 +21,29 @@ function saveCaloriesData(){
 
 
 function calculateCalories(distance) {
-    const weight = localStorage.getItem("weight");
-    const height = localStorage.getItem("height");
-    const gender = localStorage.getItem("gender");
-    
-    let calories = 0;
-    
-    // Skaičiuojame kalorijas pagal lytį
+  const weight = localStorage.getItem("weight");
+  const height = localStorage.getItem("height");
+  const gender = localStorage.getItem("gender");
+  
+  let calories = 0;
+  
+  if (weight && height && gender) {
     if (gender === 'male') {
       calories += 0.75;
     } else if (gender === 'female') {
       calories += 0.65;
     }
     
-    // Skaičiuojame kalorijas pagal svorį ir ūgį
-    calories += weight * 0.038 + height * 0.025;
+    if (weight > 0 && height > 0) {
+      calories += weight * 0.038 + height * 0.025;
+    }
     
-    // Skaičiuojame kalorijas pagal nueitą atstumą
-  if (distance > 0) {
-    calories += distance * 0.73;
+    if (distance > 0) {
+      calories += distance * 0.73;
+    }
   }
-    // Atvaizduojame rezultatą vartotojui
-    const resultElement = document.querySelector('#kmiresult');
-    resultElement.innerHTML = `${calories.toFixed(2)}`;
-  }
+  
+  const resultElement = document.querySelector('#kmiresult');
+  resultElement.innerHTML = `${calories.toFixed(2)}`;
+}
   
