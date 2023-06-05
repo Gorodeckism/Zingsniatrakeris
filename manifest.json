@@ -2,7 +2,7 @@
   "name": "Žingsniatrakeris",
   "short_name": "Žingsniatrakeris",
   "start_url": "index.html",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#FFE9D2",
   "theme_color": "#FFE1C4",
   "orientation": "portrait-primary",

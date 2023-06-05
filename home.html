@@ -95,10 +95,12 @@
             <ion-label><span id="kmiresult">0</span></ion-label>
           </ion-item>
         </ion-list>
-
+        <ion-button shape="round" id="dalintis" onClick="dalintisTuriniu(distance)">Dalintis</ion-button>
       </div>
 
-      <ion-alert trigger="stopButton" header="Skaičiavimas baigtas"></ion-alert>
+      <ion-alert trigger="stopButton" header="Skaičiavimas baigta">
+          
+      </ion-alert>
 
     </ion-content>
     <ion-footer class="ion-no-border">
@@ -111,15 +113,16 @@
         </div>
       </ion-toolbar>
     </ion-footer>
-    <script src="js/atstumoSkaiciavimas.js"></script>
+    <script src="js/atstumoSkaiciavimas.js?v=1"></script>
     <script src="js/kalorijuSkaiciavimas.js"></script>
     <script src="js/istorijosIsaugojimas.js"></script>
     <script src="js/tiksloTikrinimas.js"></script>
     <script src="js/zingsnioIlgis.js"></script>
+    <script src="js/dalintisPasiekimais.js"></script>
   </div>
   <!-- Service Worker palaikymas -->
   <script src="js/app.js"></script>
-  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/home.css?v=1" />
 </body>
 
 </html>

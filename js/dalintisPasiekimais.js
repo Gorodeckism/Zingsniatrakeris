@@ -1,4 +1,4 @@
-function dalintisTuriniu(ststumas) {
+function dalintisTuriniu(atstumas) {
     if (navigator.share) {
         navigator.share({
             title: 'Nueitas atstumas',

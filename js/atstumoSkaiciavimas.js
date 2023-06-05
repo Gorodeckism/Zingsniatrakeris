@@ -7,6 +7,7 @@ let timerInterval;
 const timerDisplay = document.getElementById('timer');
 const startButton = document.getElementById('startButton');
 const stopButton = document.getElementById('stopButton');
+const shareButton = document.getElementById('dalintis');
 
 // Deklaruojami kintamieji distanceSpan, resultSpan ir result
 const distanceSpan = document.getElementById("distance");
@@ -30,6 +31,7 @@ function stopTimer() {
     clearInterval(timerInterval);
     startButton.disabled = false;
     stopButton.disabled = true;
+    shareButton.style.display = "block";
 }
 
 // Funkcija updateTimer() atnaujina laiko atvaizdavimą (valandas, minutes, sekundes)
@@ -86,6 +88,7 @@ function stopTracking() {
     startButton.disabled = false;
     stopButton.disabled = true;
     navigator.geolocation.clearWatch(watchId);
+    
 }
 
 // Funkcija calculateDistance() apskkaičiuoja atstumą
