@@ -1,3 +1,6 @@
+
+
+
 // Deklaruojami kintamieji startTime, timerInterval, timerDisplay, startButton ir stopButton
 let startTime;
 let timerInterval;
@@ -48,6 +51,7 @@ let watchId;
 let distance = 0;
 let prevCoords;
 let deltaThreshold = 10;
+let lastUpdateTime;
 
 // Funkcija startTracking() pradedama atliekant paspaudimą ant startButton, nustatomas distance, prevCoords ir watchId kintamieji
 function startTracking() {
@@ -55,17 +59,20 @@ function startTracking() {
     stopButton.disabled = false;
     prevCoords = null;
     distance = 0;
-    watchId = navigator.geolocation.watchPosition(updateDistance, handlePositionError, {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-    });
+    watchId = navigator.geolocation.watchPosition(updateDistance);
+    // navigator.geolocation.watchPosition(updateDistance, handlePositionError, {
+    //     enableHighAccuracy: true,
+    //     timeout: 5000,
+    //     maximumAge: 0
+    // });
 }
 
 // Funkcija updateDistance() atnaujina atstumo kintamąjį distance ir jį atvaizduoja, taip pat atnaujina result ir jį atvaizduoja
 function updateDistance(position) {
     let newCoords = position.coords;
-    if (prevCoords) {
+    let currentTime = new Date().getTime();
+
+    if (prevCoords && lastUpdateTime && currentTime - lastUpdateTime >= 5000) {
         let delta = calculateDistance(prevCoords, newCoords);
         if (delta < deltaThreshold) {
             distance += delta;
@@ -83,7 +90,9 @@ function updateDistance(position) {
             }
         }
     }
+
     prevCoords = newCoords;
+    lastUpdateTime = currentTime;
 }
 
 // Funkcija stopTracking() sustabdo geolokacijos stebėjimą ir nustato mygtukų būseną
