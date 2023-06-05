@@ -50,8 +50,6 @@ let distanceText = document.getElementById('distance');
 let watchId;
 let distance = 0;
 let prevCoords;
-let deltaThreshold = 10;
-let lastUpdateTime;
 
 // Funkcija startTracking() pradedama atliekant paspaudimą ant startButton, nustatomas distance, prevCoords ir watchId kintamieji
 function startTracking() {
@@ -60,39 +58,29 @@ function startTracking() {
     prevCoords = null;
     distance = 0;
     watchId = navigator.geolocation.watchPosition(updateDistance);
-    // navigator.geolocation.watchPosition(updateDistance, handlePositionError, {
-    //     enableHighAccuracy: true,
-    //     timeout: 5000,
-    //     maximumAge: 0
-    // });
 }
 
 // Funkcija updateDistance() atnaujina atstumo kintamąjį distance ir jį atvaizduoja, taip pat atnaujina result ir jį atvaizduoja
 function updateDistance(position) {
     let newCoords = position.coords;
-    let currentTime = new Date().getTime();
-
-    if (prevCoords && lastUpdateTime && currentTime - lastUpdateTime >= 5000) {
+    if (prevCoords) {
         let delta = calculateDistance(prevCoords, newCoords);
-        if (delta < deltaThreshold) {
-            distance += delta;
-            distanceText.innerText = distance.toFixed(2);
+        distance += delta;// * 0.7
+        distanceText.innerText = distance.toFixed(2);
 
-            // Zingsniu skaiciavimas
-            result = distance / localStorage.getItem("zingsnioIlgis");
-            resultSpan.innerText = result.toFixed(0);
+        //zingsniu skaiciavimas
+        result = distance / localStorage.getItem("zingsnioIlgis");
+        resultSpan.innerText = result.toFixed(0);
 
-            calculateCalories(distance);
+        calculateCalories(distance);
 
-            // Tikslo tikrinimas
-            if (localStorage.getItem("atstumoTikslas") != null || localStorage.getItem("atstumoTikslas") != ""){
-                patikrintiTiksla(distance);
-            }
+        //tikslo tikrinimas
+        if(localStorage.getItem("atstumoTikslas") != null || localStorage.getItem("atstumoTikslas") != ""){
+            patikrintiTiksla(distance);
         }
+        
     }
-
     prevCoords = newCoords;
-    lastUpdateTime = currentTime;
 }
 
 // Funkcija stopTracking() sustabdo geolokacijos stebėjimą ir nustato mygtukų būseną
@@ -123,10 +111,6 @@ function calculateDistance(coords1, coords2) {
     return R * c;
 
 
-}
-
-function handlePositionError(error) {
-    console.error("Geolocation error:", error);
 }
 
 function toRadians(degrees) {
