@@ -1,6 +1,3 @@
-
-
-
 // Deklaruojami kintamieji startTime, timerInterval, timerDisplay, startButton ir stopButton
 let startTime;
 let timerInterval;
@@ -50,6 +47,7 @@ let distanceText = document.getElementById('distance');
 let watchId;
 let distance = 0;
 let prevCoords;
+let deltaThreshold = 10;
 
 // Funkcija startTracking() pradedama atliekant paspaudimą ant startButton, nustatomas distance, prevCoords ir watchId kintamieji
 function startTracking() {
@@ -57,7 +55,11 @@ function startTracking() {
     stopButton.disabled = false;
     prevCoords = null;
     distance = 0;
-    watchId = navigator.geolocation.watchPosition(updateDistance);
+    watchId = navigator.geolocation.watchPosition(updateDistance, handlePositionError, {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    });
 }
 
 // Funkcija updateDistance() atnaujina atstumo kintamąjį distance ir jį atvaizduoja, taip pat atnaujina result ir jį atvaizduoja
@@ -65,20 +67,21 @@ function updateDistance(position) {
     let newCoords = position.coords;
     if (prevCoords) {
         let delta = calculateDistance(prevCoords, newCoords);
-        distance += delta;// * 0.7
-        distanceText.innerText = distance.toFixed(2);
+        if (delta < deltaThreshold) {
+            distance += delta;
+            distanceText.innerText = distance.toFixed(2);
 
-        //zingsniu skaiciavimas
-        result = distance / localStorage.getItem("zingsnioIlgis");
-        resultSpan.innerText = result.toFixed(0);
+            // Zingsniu skaiciavimas
+            result = distance / localStorage.getItem("zingsnioIlgis");
+            resultSpan.innerText = result.toFixed(0);
 
-        calculateCalories(distance);
+            calculateCalories(distance);
 
-        //tikslo tikrinimas
-        if(localStorage.getItem("atstumoTikslas") != null || localStorage.getItem("atstumoTikslas") != ""){
-            patikrintiTiksla(distance);
+            // Tikslo tikrinimas
+            if (localStorage.getItem("atstumoTikslas") != null || localStorage.getItem("atstumoTikslas") != ""){
+                patikrintiTiksla(distance);
+            }
         }
-        
     }
     prevCoords = newCoords;
 }
@@ -111,6 +114,10 @@ function calculateDistance(coords1, coords2) {
     return R * c;
 
 
+}
+
+function handlePositionError(error) {
+    console.error("Geolocation error:", error);
 }
 
 function toRadians(degrees) {
