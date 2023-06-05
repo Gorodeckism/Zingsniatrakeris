@@ -56,13 +56,27 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
+    fetch(event.request)
+      .then(fetchResponse => {
+        // Patikriname, ar gautas tinkamas atsakymas
+        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
+          return caches.match(event.request);
         }
 
-        return fetch(event.request);
+        const responseToCache = fetchResponse.clone();
+
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+
+        return fetchResponse;
+      })
+      .catch(error => {
+        // Klaidos tvarkymas
+        console.error('Error fetching data:', error);
+        return caches.match(event.request);
       })
   );
 });
+
