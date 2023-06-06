@@ -9,8 +9,9 @@ function issaugotiAtstuma() {
 
 function patikrintiTiksla(atstumas) {
   let tikslas = parseInt(localStorage.getItem("atstumoTikslas")); // Convert to number
-  if (atstumas === tikslas) { // Check for equality
+  if (atstumas > tikslas) { // Check for equality
     rodytiPranesima("Tikslas pasiektas! Atstumas: " + atstumas + " m");
+    document.getElementById("pasiekimas").style.display = "block";
   }
 }
 
