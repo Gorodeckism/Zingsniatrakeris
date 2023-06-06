@@ -31,7 +31,8 @@ function stopTimer() {
     clearInterval(timerInterval);
     startButton.disabled = false;
     stopButton.disabled = true;
-    shareButton.style.display = "block";
+    //nerodomas "dalintis" mygtukas
+    //shareButton.style.display = "block";
 }
 
 // Funkcija updateTimer() atnaujina laiko atvaizdavimą (valandas, minutes, sekundes)
