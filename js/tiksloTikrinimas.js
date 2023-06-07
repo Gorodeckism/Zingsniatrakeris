@@ -8,7 +8,7 @@ function issaugotiAtstuma() {
 }
 
 function patikrintiTiksla(atstumas) {
-  let tikslas = parseInt(localStorage.getItem("atstumoTikslas")); // Convert to number
+  let tikslas = parseInt(localStorage.getItem("atstumoTikslas")); 
   if (atstumas > tikslas) { 
     rodytiPranesima("Tikslas pasiektas! Atstumas: " + atstumas + " m");
     document.getElementById("pasiekimas").style.display = "block";
